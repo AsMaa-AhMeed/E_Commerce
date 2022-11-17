@@ -25,32 +25,32 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: screens[navigatIndex],
-      bottomNavigationBar: BottomNavigationBar(
-          items: [
-            navigatItem('Home', Icons.home),
-            navigatItem('Explore', Icons.search_rounded),
-            navigatItem('Cart', Icons.local_grocery_store),
-            navigatItem('Offer', Icons.local_offer),
-            navigatItem('Account', Icons.person),
-          ],
-          onTap: ((int index) {
-            setState(() {
-              navigatIndex = index;
-            });
-          }),
-          currentIndex: navigatIndex,
-          elevation: 0.0,
-          selectedIconTheme: const IconThemeData(color: SharedColors.blueColor),
-          unselectedIconTheme:
-              const IconThemeData(color: SharedColors.greyColor),
-          selectedLabelStyle: SharedFontStyle.primaryBlueStyle,
-          unselectedLabelStyle: SharedFontStyle.subGreyStyle,
-          selectedItemColor: SharedColors.blueColor,
-          backgroundColor: Colors.white,
-          type: BottomNavigationBarType.fixed),
-    );
+        backgroundColor: Colors.white,
+        body: screens[navigatIndex],
+        bottomNavigationBar: BottomNavigationBar(
+            items: [
+              navigatItem('Home', Icons.home),
+              navigatItem('Explore', Icons.search_rounded),
+              navigatItem('Cart', Icons.local_grocery_store),
+              navigatItem('Offer', Icons.local_offer),
+              navigatItem('Account', Icons.person),
+            ],
+            onTap: ((int index) {
+              setState(() {
+                navigatIndex = index;
+              });
+            }),
+            currentIndex: navigatIndex,
+            elevation: 0.0,
+            selectedIconTheme:
+                const IconThemeData(color: SharedColors.blueColor),
+            unselectedIconTheme:
+                const IconThemeData(color: SharedColors.greyColor),
+            selectedLabelStyle: SharedFontStyle.primaryBlueStyle,
+            unselectedLabelStyle: SharedFontStyle.subGreyStyle,
+            selectedItemColor: SharedColors.blueColor,
+            backgroundColor: Colors.white,
+            type: BottomNavigationBarType.fixed));
   }
 
   BottomNavigationBarItem navigatItem(String title, IconData icon) {

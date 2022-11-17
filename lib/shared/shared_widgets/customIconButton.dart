@@ -5,7 +5,8 @@ import '../shared_theme/shared.dart';
 class CustomIconButton extends StatefulWidget {
   final IconData? icon;
   final void Function()? onPressed;
-  CustomIconButton({required this.icon, required this.onPressed});
+  const CustomIconButton(
+      {super.key, required this.icon, required this.onPressed});
 
   @override
   State<CustomIconButton> createState() => _CustomIconButtonState();

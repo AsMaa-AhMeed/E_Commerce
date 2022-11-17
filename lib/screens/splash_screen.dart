@@ -15,13 +15,12 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     initApp();
   }
 
   void initApp() {
-    Future.delayed(Duration(seconds: 3), () async {
+    Future.delayed(const Duration(seconds: 3), () async {
       final prefs = await SharedPreferences.getInstance();
       final accessToken = prefs.get('user_access_token');
       if (accessToken == null) {

@@ -44,62 +44,44 @@ class _ExploreScreenState extends State<ExploreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: ListView(children: [
-        searchBar(context),
-        Padding(
-            padding: const EdgeInsets.all(16.0),
-            child:
-                Text('Man Fashion', style: SharedFontStyle.subDarkBlueStyle)),
-        // Container(
-        //   height: 0,
-        //   child: GridView(
-
-        //       //  physics: NeverScrollableScrollPhysics(),
-        //       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        //           maxCrossAxisExtent: 100,
-        //           childAspectRatio: .8,
-        //           crossAxisSpacing: 0,
-        //           mainAxisSpacing: 0),
-        //       children: [
-        //         // for (int i = 0; i < 6; i++) categoryIcon(i),
-        //       ]),
-        // ),
-        Container(
-            child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  childAspectRatio: .82,
-                ),
-                itemCount: listOfCategoryModelForMen.length,
-                itemBuilder: (context, index) => categoryIcon(
-                      listOfCategoryModelForMen[index].image,
-                      listOfCategoryModelForMen[index].title,
-                    ))),
-
-        Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text('Woman Fashion',
-                style: SharedFontStyle.subDarkBlueStyle,
-                textAlign: TextAlign.start)),
-        Container(
-          child: GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, childAspectRatio: .82),
-              itemCount: listOfCategoryModelForWomen.length,
-              itemBuilder: (context, index) => categoryIcon(
-                    listOfCategoryModelForWomen[index].image,
-                    listOfCategoryModelForWomen[index].title,
-                  )),
-        ),
-      ]),
-    );
+        backgroundColor: Colors.white,
+        body: ListView(children: [
+          searchBar(context),
+          Padding(
+              padding: const EdgeInsets.all(16.0),
+              child:
+                  Text('Man Fashion', style: SharedFontStyle.subDarkBlueStyle)),
+          Container(
+              child: GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    childAspectRatio: .82,
+                  ),
+                  itemCount: listOfCategoryModelForMen.length,
+                  itemBuilder: (context, index) => categoryIcon(
+                        listOfCategoryModelForMen[index].image,
+                        listOfCategoryModelForMen[index].title,
+                      ))),
+          Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text('Woman Fashion',
+                  style: SharedFontStyle.subDarkBlueStyle,
+                  textAlign: TextAlign.start)),
+          Container(
+              child: GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4, childAspectRatio: .82),
+                  itemCount: listOfCategoryModelForWomen.length,
+                  itemBuilder: (context, index) => categoryIcon(
+                      listOfCategoryModelForWomen[index].image,
+                      listOfCategoryModelForWomen[index].title)))
+        ]));
   }
 
   Column categoryIcon(String image, String title) {

@@ -28,12 +28,6 @@ class _OfferScreenState extends State<OfferScreen> {
   bool isFav = false;
   @override
   Widget build(BuildContext context) {
-    // return Center(
-    //     child: Text(
-    //   'Offer Screen',
-    //   style: SharedFontStyle.primaryDarkBlueStyle,
-    // ));
-
     return ListView(
       children: [
         //Slider
@@ -104,21 +98,18 @@ class _OfferScreenState extends State<OfferScreen> {
           ),
         ),
         sectionName('Specification'),
+        const ListTile(
+            title: Text('Shown:'),
+            trailing: Text('Laser'),
+            subtitle: Text('Blue/Anthracite/Watermelon/\nWhite',
+                textAlign: TextAlign.end)),
         ListTile(
-          title: Text('Shown:'),
-          trailing: Text('Laser'),
-          subtitle: Text(
-            'Blue/Anthracite/Watermelon/\nWhite',
-            textAlign: TextAlign.end,
-          ),
-        ),
-        ListTile(
-            title: Text('Style:'),
-            trailing: Text('CD0113-400'),
+            title: const Text('Style:'),
+            trailing: const Text('CD0113-400'),
             subtitle: Text(
                 '\nThe Nike Air Max 270 React ENG combines a full-length React foam midsole with a 270 Max Air unit for unrivaled comfort and a striking visual experience.',
                 softWrap: true,
-                style: SharedFontStyle.subGreyStyle)),
+                style: SharedFontStyle.subGreyStyle))
       ],
     );
   }

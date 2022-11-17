@@ -2,9 +2,9 @@ import 'package:e/shared/shared_theme/shared.dart';
 import 'package:flutter/material.dart';
 
 class SocialButton extends StatefulWidget {
-  String assetName;
-  String data;
-  SocialButton({required this.assetName, required this.data});
+  final String assetName;
+  final String data;
+  const SocialButton({super.key, required this.assetName, required this.data});
 
   @override
   State<SocialButton> createState() => _SocialButtonState();
