@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
         title: 'E-commerce App',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+            scaffoldBackgroundColor: Colors.white,
             primaryColor: SharedColors.blueColor,
             backgroundColor: Colors.white,
             appBarTheme: const AppBarTheme(

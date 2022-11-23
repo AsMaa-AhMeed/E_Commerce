@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:e/model/category_model.dart';
+import 'package:e/model/category_';
+import 'package:e/model/category_repo_model.dart';
+import 'package:e/repository/category_repo.dart';
 import 'package:e/shared/shared_theme/shared.dart';
 import 'package:e/shared/shared_widgets/customIconButton.dart';
 import 'package:flutter/material.dart';
@@ -208,7 +210,20 @@ class _MainScreenState extends State<MainScreen> {
             sliderSection(recommendedImage2),
             titleSection('Category', 'More Category'),
             //List Of Category
-            categorySection(),
+            FutureBuilder<List<CategoryRepoModel>>(
+                future: CategoryRepo().getAllCategories(),
+                builder: ((context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const SizedBox(
+                        height: 100,
+                        child: Center(child: CircularProgressIndicator()));
+                  }
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return categorySection(snapshot.data!);
+                  }
+                  return const Text('Page Loading');
+                })),
+
             titleSection('Flash Sale', 'See More'),
             //Flash Sale Section
             saleSection(flashSaleModel),
@@ -332,13 +347,13 @@ class _MainScreenState extends State<MainScreen> {
                     ])))));
   }
 
-  Container categorySection() {
+  Container categorySection(List<CategoryRepoModel> listName) {
     return Container(
         height: 110,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
-            itemCount: listOfCategoryModel.length,
+            itemCount: listName.length,
             itemBuilder: (context, index) => Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 height: 100,
@@ -349,10 +364,10 @@ class _MainScreenState extends State<MainScreen> {
                       child: CircleAvatar(
                         radius: 30,
                         backgroundColor: Colors.white,
-                        child: Image.asset(listOfCategoryModel[index].image),
+                        child: Image.network(listName[index].image),
                       )),
                   const SizedBox(height: 8),
-                  Text(listOfCategoryModel[index].title,
+                  Text(listName[index].name,
                       style: SharedFontStyle.subGreyStyle,
                       textAlign: TextAlign.center)
                 ]))));

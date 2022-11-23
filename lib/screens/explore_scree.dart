@@ -1,4 +1,4 @@
-import 'package:e/model/category_model.dart';
+import 'package:e/model/category_';
 import 'package:e/screens/main_screen.dart';
 import 'package:e/shared/shared_theme/shared.dart';
 import 'package:flutter/material.dart';
