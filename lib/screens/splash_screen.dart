@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
           elevation: 0.0,
           backgroundColor: SharedColors.blueColor,
           systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarColor: SharedColors.blueColor,
+              statusBarColor: SharedColors.whiteColor,
               statusBarBrightness: Brightness.dark)),
       body: Center(child: Image.asset('assets/images/logo2.png', height: 90)),
     );

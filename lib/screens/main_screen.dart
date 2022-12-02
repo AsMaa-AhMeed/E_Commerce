@@ -1,9 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:e/model/category_';
+import 'package:e/model/category_model.dart';
 import 'package:e/model/category_repo_model.dart';
+import 'package:e/model/flash_sale_repo_model.dart';
+import 'package:e/model/product_repo_model.dart';
 import 'package:e/repository/category_repo.dart';
+import 'package:e/repository/flash_sale_repo.dart';
+import 'package:e/repository/product_repo.dart';
+import 'package:e/screens/category_product_screen.dart';
 import 'package:e/shared/shared_theme/shared.dart';
+import 'package:e/shared/shared_widgets/category_product_widget.dart';
 import 'package:e/shared/shared_widgets/customIconButton.dart';
+import 'package:e/shared/shared_widgets/saleSection.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -226,54 +233,55 @@ class _MainScreenState extends State<MainScreen> {
 
             titleSection('Flash Sale', 'See More'),
             //Flash Sale Section
-            saleSection(flashSaleModel),
+            FutureBuilder<List<FlashSaleRepoModel>>(
+              future: FlashSaleRepo().getAllFlashSale(),
+              builder: (context, snapshot) {
+                final listOfProduct = snapshot.data;
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const SizedBox(
+                      height: 100,
+                      child: Center(child: CircularProgressIndicator()));
+                }
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return SaleSection(listName: listOfProduct!);
+                }
+                return const Text('Page Loading');
+              },
+            ),
             titleSection('Mega Sale', 'See More'),
             //Mega Sale Section
-            saleSection(megaSaleModel),
+            // saleSection(megaSaleModel),
+            FutureBuilder<List<FlashSaleRepoModel>>(
+              future: FlashSaleRepo().getAllFlashSale(),
+              builder: (context, snapshot) {
+                final listOfProduct = snapshot.data;
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const SizedBox(
+                      height: 100,
+                      child: Center(child: CircularProgressIndicator()));
+                }
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return SaleSection(listName: listOfProduct!);
+                }
+                return const Text('Page Loading');
+              },
+            ),
             //Slider
             sliderSection(recommendedImage),
-            GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, childAspectRatio: .6),
-                scrollDirection: Axis.vertical,
-                itemCount: megaSaleModel.length,
-                itemBuilder: (context, index) => Container(
-                    margin: const EdgeInsets.all(8),
-                    height: 200,
-                    width: 200,
-                    child: Container(
-                        padding: const EdgeInsets.all(14),
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(14)),
-                            border: Border.all(
-                                color: SharedColors.backGroundColor,
-                                width: .5)),
-                        child: Column(children: [
-                          Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child: Image.network(megaSaleModel[index].image,
-                                  width: 130, height: 130, fit: BoxFit.cover)),
-                          ListTile(
-                              title: Text(megaSaleModel[index].title,
-                                  style: SharedFontStyle.subDarkBlueStyle),
-                              subtitle: Text(
-                                  '\n${megaSaleModel[index].newPrice}',
-                                  style: SharedFontStyle.primaryBlueStyle)),
-                          ListTile(
-                              title: Text('${megaSaleModel[index].oldPrice}',
-                                  style: const TextStyle(
-                                      decoration: TextDecoration.lineThrough,
-                                      fontSize: 12,
-                                      color: SharedColors.greyColor)),
-                              trailing: Text('24% Off',
-                                  style: SharedFontStyle.offerStyle))
-                        ]))))
+            FutureBuilder<List<ProductRepoModel>>(
+                future: ProductRepo().getAllProducts(),
+                builder: (context, snapshot) {
+                  final listOfProduct = snapshot.data;
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const SizedBox(
+                        height: 100,
+                        child: Center(child: CircularProgressIndicator()));
+                  }
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return ProductCategoryWidget(listOfProduct: listOfProduct!);
+                  }
+                  return const Text('Page Loading');
+                }),
           ]),
         ],
       ),
@@ -305,48 +313,6 @@ class _MainScreenState extends State<MainScreen> {
             enableInfiniteScroll: true));
   }
 
-  Container saleSection(List<CategoryModel> listName) {
-    return Container(
-        height: 320,
-        child: ListView.builder(
-            //  physics: NeverScrollableScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemCount: listName.length,
-            itemBuilder: (context, index) => Container(
-                margin: const EdgeInsets.all(8),
-                height: 200,
-                width: 200,
-                child: Container(
-                    padding: const EdgeInsets.all(14),
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(14)),
-                        border: Border.all(
-                            color: SharedColors.backGroundColor, width: .5)),
-                    child: Column(children: [
-                      Container(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Image.network(listName[index].image,
-                              width: 130, height: 130, fit: BoxFit.cover)),
-                      ListTile(
-                          title: Text(listName[index].title,
-                              style: SharedFontStyle.subDarkBlueStyle),
-                          subtitle: Text('\n${listName[index].newPrice}',
-                              style: SharedFontStyle.primaryBlueStyle)),
-                      ListTile(
-                          title: Text('${listName[index].oldPrice}',
-                              style: const TextStyle(
-                                  decoration: TextDecoration.lineThrough,
-                                  fontSize: 12,
-                                  color: SharedColors.greyColor)),
-                          trailing: Text('24% Off',
-                              style: SharedFontStyle.offerStyle))
-                    ])))));
-  }
-
   Container categorySection(List<CategoryRepoModel> listName) {
     return Container(
         height: 110,
@@ -358,14 +324,19 @@ class _MainScreenState extends State<MainScreen> {
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 height: 100,
                 child: Column(children: [
-                  CircleAvatar(
-                      radius: 31,
-                      backgroundColor: SharedColors.backGroundColor,
-                      child: CircleAvatar(
-                        radius: 30,
-                        backgroundColor: Colors.white,
-                        child: Image.network(listName[index].image),
-                      )),
+                  InkWell(
+                    onTap: (() {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => CategoryProductScreen(
+                              title: listName[index].name)));
+                    }),
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.white,
+                      backgroundImage: NetworkImage(listName[index].image),
+                      //   child: Image.network(listName[index].image),
+                    ),
+                  ),
                   const SizedBox(height: 8),
                   Text(listName[index].name,
                       style: SharedFontStyle.subGreyStyle,
