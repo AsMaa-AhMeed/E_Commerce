@@ -268,20 +268,20 @@ class _MainScreenState extends State<MainScreen> {
             ),
             //Slider
             sliderSection(recommendedImage),
-            FutureBuilder<List<ProductRepoModel>>(
-                future: ProductRepo().getAllProducts(),
-                builder: (context, snapshot) {
-                  final listOfProduct = snapshot.data;
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const SizedBox(
-                        height: 100,
-                        child: Center(child: CircularProgressIndicator()));
-                  }
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return ProductCategoryWidget(listOfProduct: listOfProduct!);
-                  }
-                  return const Text('Page Loading');
-                }),
+            // FutureBuilder<List<ProductRepoModel>>(
+            // future: ProductRepo().getAllProducts(),
+            //     builder: (context, snapshot) {
+            //       final listOfProduct = snapshot.data;
+            //       if (snapshot.connectionState == ConnectionState.waiting) {
+            //         return const SizedBox(
+            //             height: 100,
+            //             child: Center(child: CircularProgressIndicator()));
+            //       }
+            //       if (snapshot.connectionState == ConnectionState.done) {
+            //         return ProductCategoryWidget(listOfProduct: listOfProduct!);
+            //       }
+            //       return const Text('Page Loading');
+            //     }),
           ]),
         ],
       ),
@@ -328,7 +328,7 @@ class _MainScreenState extends State<MainScreen> {
                     onTap: (() {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (_) => CategoryProductScreen(
-                              title: listName[index].name)));
+                              categoryName: listName[index].name)));
                     }),
                     child: CircleAvatar(
                       radius: 30,

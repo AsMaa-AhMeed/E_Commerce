@@ -4,8 +4,8 @@ import 'package:e/shared/shared_widgets/category_product_widget.dart';
 import 'package:flutter/material.dart';
 
 class CategoryProductScreen extends StatelessWidget {
-  final String title;
-  const CategoryProductScreen({super.key, required this.title});
+  final String categoryName;
+  const CategoryProductScreen({super.key, required this.categoryName});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class CategoryProductScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          title,
+          categoryName,
           style: const TextStyle(color: Colors.black),
         ),
         leading: IconButton(
@@ -27,7 +27,7 @@ class CategoryProductScreen extends StatelessWidget {
         ),
       ),
       body: FutureBuilder<List<ProductRepoModel>>(
-          future: ProductRepo().getAllProducts(),
+          future: ProductRepo().getAllProducts(categoryName),
           builder: (context, snapshot) {
             final listOfProduct = snapshot.data;
             if (snapshot.connectionState == ConnectionState.waiting) {
