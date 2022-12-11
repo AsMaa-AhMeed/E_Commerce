@@ -1,8 +1,9 @@
+import 'package:e/model/product_repo_model.dart';
 import 'package:e/shared/shared_theme/shared.dart';
 import 'package:flutter/material.dart';
 
 class ProductCategoryWidget extends StatelessWidget {
-  final List listOfProduct;
+  final List<ProductRepoModel> listOfProduct;
   const ProductCategoryWidget({super.key, required this.listOfProduct});
 
   @override
@@ -19,8 +20,6 @@ class ProductCategoryWidget extends StatelessWidget {
                   (listOfProduct[index].discountPercentage / 100));
           return Container(
               margin: const EdgeInsets.all(8),
-              // height: 100,
-              // width: 200,
               child: Container(
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(

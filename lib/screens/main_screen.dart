@@ -1,17 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e/cubits/category_cubit/category_cubit.dart';
+import 'package:e/cubits/product_cubit/cubit/product_cubit.dart';
+import 'package:e/cubits/sale_cubit/cubit/sale_cubit.dart';
 import 'package:e/model/category_model.dart';
 import 'package:e/model/category_repo_model.dart';
 import 'package:e/model/flash_sale_repo_model.dart';
 import 'package:e/model/product_repo_model.dart';
-import 'package:e/repository/category_repo.dart';
-import 'package:e/repository/flash_sale_repo.dart';
-import 'package:e/repository/product_repo.dart';
 import 'package:e/screens/category_product_screen.dart';
 import 'package:e/shared/shared_theme/shared.dart';
 import 'package:e/shared/shared_widgets/category_product_widget.dart';
 import 'package:e/shared/shared_widgets/customIconButton.dart';
 import 'package:e/shared/shared_widgets/saleSection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -206,6 +207,15 @@ class _MainScreenState extends State<MainScreen> {
         newPrice: '\$250.0s'),
   ];
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<CategoryCubit>().getAllCategories();
+    context.read<ProductCubit>().getAllProducts();
+    context.read<SaleCubit>().getAllFlashSale();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -217,59 +227,129 @@ class _MainScreenState extends State<MainScreen> {
             sliderSection(recommendedImage2),
             titleSection('Category', 'More Category'),
             //List Of Category
-            FutureBuilder<List<CategoryRepoModel>>(
-                future: CategoryRepo().getAllCategories(),
-                builder: ((context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const SizedBox(
-                        height: 100,
-                        child: Center(child: CircularProgressIndicator()));
-                  }
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return categorySection(snapshot.data!);
-                  }
-                  return const Text('Page Loading');
-                })),
+            BlocBuilder<CategoryCubit, CategoryState>(
+                builder: ((context, state) {
+              if (state is CategoryLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is CategorySuccess) {
+                List<CategoryRepoModel> listOfCategories =
+                    state.listOfCategories!;
+                return categorySection(listOfCategories);
+              }
+              if (state is CategoryFailure) {
+                return const Text('No Internet Connection!');
+              }
+              return const Text('Try Again Later!');
+            })),
+            // FutureBuilder<List<CategoryRepoModel>>(
+            //     future: CategoryRepo().getAllCategories(),
+            //     builder: ((context, snapshot) {
+            //       if (snapshot.connectionState == ConnectionState.waiting) {
+            //         return const SizedBox(
+            //             height: 100,
+            //             child: Center(child: CircularProgressIndicator()));
+            //       }
+            //       if (snapshot.connectionState == ConnectionState.done) {
+            //         return categorySection(snapshot.data!);
+            //       }
+            //       return const Text('Page Loading');
+            //     })),
 
             titleSection('Flash Sale', 'See More'),
+            BlocBuilder<SaleCubit, SaleSectionState>(
+                builder: ((context, state) {
+              if (state is SaleSectionLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              if (state is SaleSectionSuccess) {
+                List<FlashSaleRepoModel> flashSaleRepoModel =
+                    state.flashSaleRepoModel;
+                return SaleSection(listName: flashSaleRepoModel);
+              }
+              if (state is SaleSectionFailure) {
+                return const Text('No Internet Connection!');
+              }
+              return const Text('Try Again Later!');
+            })),
+
             //Flash Sale Section
-            FutureBuilder<List<FlashSaleRepoModel>>(
-              future: FlashSaleRepo().getAllFlashSale(),
-              builder: (context, snapshot) {
-                final listOfProduct = snapshot.data;
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const SizedBox(
-                      height: 100,
-                      child: Center(child: CircularProgressIndicator()));
-                }
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return SaleSection(listName: listOfProduct!);
-                }
-                return const Text('Page Loading');
-              },
-            ),
+            // FutureBuilder<List<FlashSaleRepoModel>>(
+            //   future: FlashSaleRepo().getAllFlashSale(),
+            //   builder: (context, snapshot) {
+            //     final listOfProduct = snapshot.data;
+            //     if (snapshot.connectionState == ConnectionState.waiting) {
+            //       return const SizedBox(
+            //           height: 100,
+            //           child: Center(child: CircularProgressIndicator()));
+            //     }
+            //     if (snapshot.connectionState == ConnectionState.done) {
+            //       return SaleSection(listName: listOfProduct!);
+            //     }
+            //     return const Text('Page Loading');
+            //   },
+            // ),
             titleSection('Mega Sale', 'See More'),
             //Mega Sale Section
+            BlocBuilder<SaleCubit, SaleSectionState>(
+                builder: ((context, state) {
+              if (state is SaleSectionLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is SaleSectionSuccess) {
+                List<FlashSaleRepoModel> flashSaleRepoModel =
+                    state.flashSaleRepoModel;
+                return SaleSection(listName: flashSaleRepoModel);
+              }
+              if (state is SaleSectionFailure) {
+                return const Text('No Internet Connection!');
+              }
+              return const Text('Try Again Later!');
+            })),
+
             // saleSection(megaSaleModel),
-            FutureBuilder<List<FlashSaleRepoModel>>(
-              future: FlashSaleRepo().getAllFlashSale(),
-              builder: (context, snapshot) {
-                final listOfProduct = snapshot.data;
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const SizedBox(
-                      height: 100,
-                      child: Center(child: CircularProgressIndicator()));
-                }
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return SaleSection(listName: listOfProduct!);
-                }
-                return const Text('Page Loading');
-              },
-            ),
+            // FutureBuilder<List<FlashSaleRepoModel>>(
+            //   future: FlashSaleRepo().getAllFlashSale(),
+            //   builder: (context, snapshot) {
+            //     final listOfProduct = snapshot.data;
+            //     if (snapshot.connectionState == ConnectionState.waiting) {
+            //       return const SizedBox(
+            //           height: 100,
+            //           child: Center(child: CircularProgressIndicator()));
+            //     }
+            //     if (snapshot.connectionState == ConnectionState.done) {
+            //       return SaleSection(listName: listOfProduct!);
+            //     }
+            //     return const Text('Page Loading');
+            //   },
+            // ),
             //Slider
             sliderSection(recommendedImage),
+            BlocBuilder<ProductCubit, ProductState>(builder: ((context, state) {
+              if (state is ProductLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is ProductSuccess) {
+                List<ProductRepoModel> listOfProduct = state.listOfProduct!;
+
+                return ProductCategoryWidget(listOfProduct: listOfProduct);
+              }
+              if (state is ProductFailure) {
+                return const Text('No Internet Connection!');
+              }
+              return const Text('Try Again Later!');
+            }))
             // FutureBuilder<List<ProductRepoModel>>(
-            // future: ProductRepo().getAllProducts(),
+            //     future: ProductRepository().getAllProducts(),
             //     builder: (context, snapshot) {
             //       final listOfProduct = snapshot.data;
             //       if (snapshot.connectionState == ConnectionState.waiting) {

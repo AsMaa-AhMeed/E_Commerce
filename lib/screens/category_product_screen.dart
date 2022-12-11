@@ -27,7 +27,7 @@ class CategoryProductScreen extends StatelessWidget {
         ),
       ),
       body: FutureBuilder<List<ProductRepoModel>>(
-          future: ProductRepo().getAllProducts(categoryName),
+          future: ProductRepo().getAllProducts(categoryName: categoryName),
           builder: (context, snapshot) {
             final listOfProduct = snapshot.data;
             if (snapshot.connectionState == ConnectionState.waiting) {

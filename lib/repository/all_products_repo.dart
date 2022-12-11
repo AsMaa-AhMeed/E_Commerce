@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:e/model/product_repo_model.dart';
 
-class ProductRepo {
-  Future<List<ProductRepoModel>> getAllProducts({String? categoryName}) async {
-    final respone = await Dio()
-        .get('https://dummyjson.com/products/category/$categoryName');
+class ProductRepository {
+  Future<List<ProductRepoModel>> getAllProducts() async {
+    // fetch / get data
+    final response = await Dio().get('https://dummyjson.com/products');
+
+    // modelling
     final listOfProductModel =
-        List<ProductRepoModel>.from(respone.data['products'].map((element) {
+        List<ProductRepoModel>.from(response.data['products'].map((element) {
       return ProductRepoModel(
         discountPercentage: element['discountPercentage'],
         id: element['id'],
