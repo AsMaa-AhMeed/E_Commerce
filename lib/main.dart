@@ -1,4 +1,6 @@
+import 'package:e/cubits/cart_cubit/cubit/cart_cubit.dart';
 import 'package:e/cubits/category_cubit/category_cubit.dart';
+import 'package:e/cubits/get_single_product/cubit/single_product_cubit.dart';
 import 'package:e/cubits/product_cubit/cubit/product_cubit.dart';
 import 'package:e/cubits/sale_cubit/cubit/sale_cubit.dart';
 import 'package:e/screens/splash_screen.dart';
@@ -20,6 +22,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => CategoryCubit()),
         BlocProvider(create: (context) => ProductCubit()),
         BlocProvider(create: (context) => SaleCubit()),
+        BlocProvider(create: (context) => SingleProductCubit()),
+        BlocProvider(create: (context) => CartCubit()),
       ],
       child: MaterialApp(
           title: 'E-commerce App',

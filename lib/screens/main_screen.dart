@@ -245,18 +245,18 @@ class _MainScreenState extends State<MainScreen> {
               return const Text('Try Again Later!');
             })),
             // FutureBuilder<List<CategoryRepoModel>>(
-            //     future: CategoryRepo().getAllCategories(),
-            //     builder: ((context, snapshot) {
-            //       if (snapshot.connectionState == ConnectionState.waiting) {
-            //         return const SizedBox(
-            //             height: 100,
-            //             child: Center(child: CircularProgressIndicator()));
-            //       }
-            //       if (snapshot.connectionState == ConnectionState.done) {
-            //         return categorySection(snapshot.data!);
-            //       }
-            //       return const Text('Page Loading');
-            //     })),
+            // future: CategoryRepo().getAllCategories(),
+            // builder: ((context, snapshot) {
+            //   if (snapshot.connectionState == ConnectionState.waiting) {
+            //     return const SizedBox(
+            //         height: 100,
+            //         child: Center(child: CircularProgressIndicator()));
+            //   }
+            //   if (snapshot.connectionState == ConnectionState.done) {
+            //     return categorySection(snapshot.data!);
+            //   }
+            //   return const Text('Page Loading');
+            // })),
 
             titleSection('Flash Sale', 'See More'),
             BlocBuilder<SaleCubit, SaleSectionState>(

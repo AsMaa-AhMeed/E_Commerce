@@ -11,8 +11,8 @@ class CustomTextField extends StatefulWidget {
   String? Function(String?)? validator;
   CustomTextField(
       {required this.hintText,
-      required this.inputType,
-      required this.preIcon,
+      this.inputType,
+      this.preIcon,
       this.security = false,
       this.sufIcon,
       this.controller,
@@ -27,24 +27,27 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 10),
-      child: TextFormField(
-        validator: widget.validator,
-        controller: widget.controller,
-        keyboardType: widget.inputType,
-        obscureText: widget.security,
-        style: SharedFontStyle.primaryGreyStyle,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(borderSide: BorderSide(width: 12)),
-          focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: SharedColors.blueColor)),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: const BorderSide(color: SharedColors.greyColor)),
-          hintText: widget.hintText,
-          hintStyle: SharedFontStyle.subGreyStyle,
-          enabled: true,
-          prefixIcon: widget.preIcon,
-          suffixIcon: widget.sufIcon,
+      child: Container(
+        height: 230,
+        child: TextFormField(
+          validator: widget.validator,
+          controller: widget.controller,
+          keyboardType: widget.inputType,
+          obscureText: widget.security,
+          style: SharedFontStyle.primaryGreyStyle,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(borderSide: BorderSide(width: 12)),
+            focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: SharedColors.blueColor)),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: const BorderSide(color: SharedColors.greyColor)),
+            hintText: widget.hintText,
+            hintStyle: SharedFontStyle.subGreyStyle,
+            enabled: true,
+            prefixIcon: widget.preIcon,
+            suffixIcon: widget.sufIcon,
+          ),
         ),
       ),
     );

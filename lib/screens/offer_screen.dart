@@ -33,28 +33,26 @@ class _OfferScreenState extends State<OfferScreen> {
         //Slider
         sliderSection(images),
         ListTile(
-          title: Text('Nike Air Zoom Pegasus 36 Miami',
-              style: SharedFontStyle.primaryDarkBlueStyle),
-          trailing: IconButton(
-            icon: Icon(
-              isFav ? Icons.favorite : Icons.favorite_border,
-              color: Colors.red,
-              size: 30,
-            ),
-            onPressed: () {
-              isFav = !isFav;
-              setState(() {});
-            },
-          ),
-          subtitle: Row(children: [
-            for (int i = 0; i < 5; i++)
-              const Icon(
-                Icons.star,
-                color: Colors.amber,
-                size: 28,
-              )
-          ]),
-        ),
+            title: Text('Nike Air Zoom Pegasus 36 Miami',
+                style: SharedFontStyle.primaryDarkBlueStyle),
+            trailing: IconButton(
+                icon: Icon(
+                  isFav ? Icons.favorite : Icons.favorite_border,
+                  color: Colors.red,
+                  size: 30,
+                ),
+                onPressed: () {
+                  isFav = !isFav;
+                  setState(() {});
+                }),
+            subtitle: Row(children: [
+              for (int i = 0; i < 5; i++)
+                const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                  size: 28,
+                )
+            ])),
         const Text('   \$299.50',
             style: TextStyle(
                 color: SharedColors.blueColor,
@@ -68,35 +66,33 @@ class _OfferScreenState extends State<OfferScreen> {
                 scrollDirection: Axis.horizontal,
                 itemCount: size.length,
                 itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CircleAvatar(
-                          radius: 31,
-                          backgroundColor: SharedColors.backGroundColor,
-                          child: CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.white,
-                            child: Text('${size[index]}',
-                                style: SharedFontStyle.subDarkBlueStyle),
-                          )),
-                    ))),
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                        radius: 31,
+                        backgroundColor: SharedColors.backGroundColor,
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Colors.white,
+                          child: Text('${size[index]}',
+                              style: SharedFontStyle.subDarkBlueStyle),
+                        ))))),
         sectionName('Select Color'),
 
         //Select Color
         Container(
-          height: 80,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: selectColor.length,
-            itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: selectColor[index])),
-            ),
-          ),
-        ),
+            height: 80,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: selectColor.length,
+                itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: selectColor[index])),
+                    ))),
         sectionName('Specification'),
         const ListTile(
             title: Text('Shown:'),

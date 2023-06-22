@@ -24,4 +24,18 @@ class ProductRepoModel {
     required this.stock,
     required this.thumbnail,
   });
+  factory ProductRepoModel.fromJson(Map<String, dynamic> json) =>
+      ProductRepoModel(
+        id: json["id"],
+        title: json["title"],
+        description: json["description"],
+        price: json["price"],
+        discountPercentage: json["discountPercentage"].toDouble(),
+        rating: json["rating"].toDouble(),
+        stock: json["stock"],
+        brand: json["brand"],
+        category: json["category"],
+        thumbnail: json["thumbnail"],
+        listOfImages: List<String>.from(json["images"].map((x) => x)),
+      );
 }

@@ -6,6 +6,7 @@ import 'package:e/shared/shared_widgets/customTextField.dart';
 import 'package:e/user_view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
